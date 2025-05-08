@@ -12,31 +12,31 @@ Here you'll find various scripts I've cooked up – some simple, some maybe a bi
 2.  Configure the Python Bridge plugin settings in Obsidian to point to the folder where you've placed these scripts (or your own).
 3.  Ensure you have Python 3.x and `requests` installed (`pip install requests`). (Some scripts might require `PyYAML` too).
 4.  Run the scripts via Obsidian's command palette! (Check the Python Bridge settings to see available script commands and configure script-specific settings if available).
+5.  **Important Note:** For scripts to work reliably with plugin features like **Settings Discovery**, it's highly recommended they include the `define_settings([])` and `_handle_cli_args()` boilerplate, even if empty. See the [Python Bridge Library Docs](https://github.com/mathe00/obsidian-plugin-python-bridge/blob/main/PythonClientLibrary.md#important-script-structure-for-settings-discovery) for details. Some minimal examples here might omit this for brevity, but be aware they might cause errors during settings refresh.
 
 ## ✨ Available Scripts
 
 Here's what's currently in the collection:
 
-1.  **`convert_all_basic_obsidian_links_into_wikilinks.py`**
-    *   **Purpose:** A simple utility script (originally from V1 era, updated for V2 compatibility) that finds basic links like `[[My Note]]` and converts them to piped wikilinks like `[[My Note|My Note]]`.
-    *   **Features:** Preserves frontmatter.
-    *   **Configurable:** No specific UI settings for this one.
+1.  **[`define_word_en_concise.py`](./define_word_en_concise.py)**
+    *   **Purpose:** A **super concise example** (around 9 lines!) showing the power of the bridge. Select an English word in Obsidian, run the script, and get its definition from an online dictionary API in a notification.
+    *   **Highlights:** Demonstrates `get_selected_text()`, `show_notification()`, and easy integration with external APIs via `requests`.
+    *   **Note:** This script prioritizes extreme brevity over robustness. It lacks error handling and the recommended `define_settings`/`_handle_cli_args` structure (which might cause errors during plugin settings discovery/refresh but works for manual execution). It's primarily for demonstrating how few lines are needed for a useful interaction.
 
-2.  **`script-auto-linker.py`** (V2.3 - Robust Matching)
+2.  **[`script-auto-linker.py`](./script-auto-linker.py)** (V2.3 - Robust Matching)
     *   **Purpose:** An advanced auto-linker that scans the active note for text matching other note titles in your vault and automatically creates links.
     *   **Features:**
-        *   Configurable link type via plugin settings:
-            *   Piped Wikilink: `[[Note Title|Matched Text]]`
-            *   Simple Wikilink: `[[Note Title]]`
-            *   Markdown Link: `[Matched Text](Note%20Path.md)`
-        *   Configurable options (via plugin settings) for:
-            *   Preserving original text case in links.
-            *   Ignoring accents when matching text to titles.
-            *   Handling punctuation adjacent to matched text.
+        *   Configurable link type via plugin settings: Piped Wikilink, Simple Wikilink, or Markdown Link.
+        *   Configurable options (via plugin settings) for case preservation, accent ignorance, and punctuation handling.
         *   Avoids linking inside existing links or code blocks.
         *   Handles multi-word titles accurately, even mid-sentence.
         *   Preserves frontmatter.
-    *   **Requires:** Obsidian Python Bridge V2. Uses script-specific settings.
+    *   **Requires:** Obsidian Python Bridge V2. Uses script-specific settings and the recommended structure.
+
+3.  **[`convert_all_basic_obsidian_links_into_wikilinks.py`](./convert_all_basic_obsidian_links_into_wikilinks.py)**
+    *   **Purpose:** A simple utility script (updated for V2 compatibility) that finds basic links like `[[My Note]]` and converts them to piped wikilinks like `[[My Note|My Note]]`.
+    *   **Features:** Preserves frontmatter. Uses the recommended structure.
+    *   **Configurable:** No specific UI settings for this one.
 
 *(More scripts might be added over time!)*
 
